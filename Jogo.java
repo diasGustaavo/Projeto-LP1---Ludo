@@ -167,6 +167,17 @@ public class Jogo {
         
         // Perguntamos à casa qual é a peça.
         Peca peca = casa.getPeca();
+        
+        //NOVO ADICIONADO POR GUSTAVO
+        //VERIFICA SE A CASA PERTENCE A GUARITA E SE OS NUMEROS DOS DADOS SAO IGUAIS
+        //SE SIM A PECA NA CASA MOVE-SE PARA CASA INICIAL
+        
+        if(casa.pertenceGuarita()){
+            if(dados[0].getValor() == dados[1].getValor()){
+                
+                peca.mover(tabuleiro.getCasaInicio(peca.getCor()));
+            }
+        }
 
         // Percorremos cada dado, somando o valor nele à variável somaDados.
         int somaDados = 0;
