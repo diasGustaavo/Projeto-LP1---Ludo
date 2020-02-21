@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=DadoGUI
+comment0.text=\r\n\ Implementa\u00E7\u00E3o\ gr\u00E1fica\ do\ Dado.\r\n\ \r\n\ @author\ Alan\ Moraes\ /\ alan@ci.ufpb.br\r\n\ @author\ Victor\ Koehler\ /\ koehlervictor@cc.ci.ufpb.br\r\n
+comment1.params=janelaPrincipal
+comment1.target=DadoGUI(Principal)
+comment1.text=\r\n\ Construtor\ gr\u00E1fico\ para\ os\ Dados.\r\n\ @param\ janelaPrincipal\ Janela\ principal.\r\n
+comment2.params=evt
+comment2.target=void\ mouseClicked(java.awt.event.MouseEvent)
+comment3.params=valor
+comment3.target=void\ setValor(int)
+comment3.text=\r\n\ Define\ o\ valor\ de\ exibi\u00E7\u00E3o\ dos\ dados.\r\n\ @param\ valor\ Valor\ do\ dado\r\n
+comment4.params=
+comment4.target=void\ initComponents()
+comment4.text=\r\n\ This\ method\ is\ called\ from\ within\ the\ constructor\ to\ initialize\ the\ form.\r\n\ WARNING\:\ Do\ NOT\ modify\ this\ code.\ The\ content\ of\ this\ method\ is\ always\r\n\ regenerated\ by\ the\ Form\ Editor.\r\n
+numComments=5

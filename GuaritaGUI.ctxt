@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=GuaritaGUI
+comment0.text=\r\n\ Implementa\ as\ funcionalidades\ gr\u00E1ficas\ das\ bordas\ do\ jogo,\ nomeadamente\ as\ guaritas.\r\n\ \r\n\ @author\ Alan\ Moraes\ /\ alan@ci.ufpb.br\r\n\ @author\ Victor\ Koehler\ /\ koehlervictor@cc.ci.ufpb.br\r\n
+comment1.params=cor\ principal
+comment1.target=GuaritaGUI(java.lang.String,\ Principal)
+comment1.text=\r\n\ Um\ bloco\ da\ guarita\ colorido\ sem\ borda\ simples.\r\n\ @param\ cor\ Cor\ da\ guarita\r\n\ @param\ principal\ Classe\ principal\r\n
+comment2.params=cor\ func\ principal
+comment2.target=GuaritaGUI(java.lang.String,\ int,\ Principal)
+comment2.text=\r\n\ Um\ bloco\ da\ guarita\ branco,\ que\ de\ acordo\ com\ a\ cor\ e\ 'func',\ representa\r\n\ a\ quantidade\ de\ pe\u00E7as\ restantes\ do\ jogador.\r\n\ \r\n\ @param\ cor\ Cor\ da\ guarita\r\n\ @param\ func\ Fun\u00E7\u00E3o\ da\ guarita\r\n\ @param\ principal\ Classe\ principal\r\n
+comment3.params=
+comment3.target=boolean\ eCasa()
+comment4.params=
+comment4.target=Casa\ getCasa()
+comment5.params=
+comment5.target=java.awt.Color\ getCor()
+comment6.params=g
+comment6.target=void\ paintComponent(java.awt.Graphics)
+numComments=7

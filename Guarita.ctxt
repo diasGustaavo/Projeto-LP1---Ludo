@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Guarita
+comment0.text=\r\n\r\n\ Implementa\ a\ guarita,\ um\ espa\u00E7o\ reservado\ as\ pe\u00E7as\ fora\ do\ jogo.\r\n\ \r\n\ @author\ Alan\ Moraes\ /\ alan@ci.ufpb.br\r\n\ @author\ Victor\ Koehler\ /\ koehlervictor@cc.ci.ufpb.br\r\n
+comment1.params=cor
+comment1.target=Guarita(java.lang.String)
+comment1.text=\r\n\ Inicializa\ a\ guarita\ vazia.\r\n\ @param\ cor\ Cor\r\n
+comment2.params=indice
+comment2.target=Casa\ getCasa(int)
+comment2.text=\r\n\ Obt\u00E9m\ a\ casa\ associada\ a\ esta\ guarita\ de\ acordo\ com\ o\ \u00EDndice\ especificado.\r\n\ @param\ indice\ \u00CDndice\ da\ casa,\ entre\ 0\ (inclusivo)\ e\ 4\ (exclusivo).\r\n\ @return\ Casa\r\n
+comment3.params=
+comment3.target=int\ getNumeroDePecas()
+comment3.text=\r\n\ Obt\u00E9m\ o\ n\u00FAmero\ de\ pe\u00E7as\ presentes\ nas\ casas\ da\ guarita.\r\n\ @return\ N\u00FAmero\ de\ pe\u00E7as\r\n
+comment4.params=
+comment4.target=Casa[]\ getTodasAsCasas()
+comment4.text=\r\n\ Obt\u00E9m\ uma\ c\u00F3pia\ da\ lista\ de\ casas\ desta\ guarita.\r\n\ \u00DAtil\ para\ iterar\ sobre\ as\ casas\ usando\ o\ for(each).\r\n\ @return\ Array\ contendo\ as\ casas.\r\n
+comment5.params=
+comment5.target=java.lang.String\ getCor()
+comment5.text=\r\n\ @return\ A\ cor\ da\ guarita\r\n
+numComments=6

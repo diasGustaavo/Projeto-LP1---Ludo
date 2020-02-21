@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Dado
+comment0.text=\r\n\ Representa\ um\ dado\ com\ n\u00FAmeros\ de\ 1\ a\ 6.\r\n\ \r\n\ @author\ Alan\ Moraes\ /\ alan@ci.ufpb.br\r\n\ @author\ Victor\ Koehler\ /\ koehlervictor@cc.ci.ufpb.br\r\n
+comment1.params=
+comment1.target=Dado()
+comment1.text=\r\n\ Construtor\ padr\u00E3o\ para\ dados.\r\n
+comment2.params=seed
+comment2.target=Dado(long)
+comment2.text=\r\n\ Construtor\ de\ dados\ batizados.\r\n\ @param\ seed\ Semente\ do\ gerador\r\n
+comment3.params=
+comment3.target=void\ rolar()
+comment3.text=\r\n\ Lan\u00E7a\ os\ dados\ e\ salva\ o\ seu\ valor.\r\n
+comment4.params=
+comment4.target=int\ getValor()
+comment4.text=\r\n\ Obt\u00E9m\ o\ \u00FAltimo\ valor\ obtido\ ao\ lan\u00E7ar\ os\ dados.\r\n\ Retorna\ -1\ caso\ jogarDados\ ainda\ n\u00E3o\ tenha\ sido\ invocado.\r\n\ @return\ \u00DAltimo\ valor\ obtido\ ao\ lan\u00E7ar\ os\ dados.\r\n
+numComments=5

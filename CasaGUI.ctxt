@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=CasaGUI
+comment0.text=\r\n\ Implementa\ as\ rotinas\ da\ interface\ gr\u00E1fica\ do\ jogo\ relacionadas\ a\ Casa.\r\n\ \r\n\ @author\ Alan\ Moraes\ /\ alan@ci.ufpb.br\r\n\ @author\ Victor\ Koehler\ /\ koehlervictor@cc.ci.ufpb.br\r\n
+comment1.params=casa\ janelaPrincipal
+comment1.target=CasaGUI(Casa,\ Principal)
+comment1.text=\r\n\ Construtor\ padr\u00E3o\ da\ interface\ gr\u00E1fica\ de\ uma\ casa\ do\ tabuleiro.\r\n\ @param\ casa\ Casa\ relacionada.\r\n\ @param\ janelaPrincipal\ Janela\ principal\r\n
+comment2.params=evt
+comment2.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment3.params=
+comment3.target=Casa\ getCasa()
+comment4.params=casa
+comment4.target=void\ setCasa(Casa)
+comment5.params=
+comment5.target=java.awt.Color\ getCor()
+comment6.params=
+comment6.target=boolean\ possuiBorda()
+comment7.params=g
+comment7.target=void\ paintComponent(java.awt.Graphics)
+numComments=8

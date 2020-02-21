@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Peca
+comment0.text=\r\n\ Representa\ uma\ pe\u00E7a\ do\ jogo.\r\n\ \r\n\ @author\ Alan\ Moraes\ /\ alan@ci.ufpb.br\r\n\ @author\ Victor\ Koehler\ /\ koehlervictor@cc.ci.ufpb.br\r\n
+comment1.params=cor
+comment1.target=Peca(java.lang.String)
+comment1.text=\r\n\ Construtor\ padr\u00E3o\ para\ pe\u00E7as.\r\n\ @param\ cor\ Cor\ da\ pe\u00E7a\r\n
+comment2.params=
+comment2.target=java.lang.String\ getCor()
+comment2.text=\r\n\ Cor\ da\ pe\u00E7a.\r\n\ @return\ Cor\ da\ pe\u00E7a.\r\n
+comment3.params=
+comment3.target=Casa\ getCasa()
+comment3.text=\r\n\ Casa\ na\ qual\ a\ pe\u00E7a\ se\ encontra.\r\n\ @return\ Casa\ na\ qual\ a\ pe\u00E7a\ se\ encontra.\r\n
+comment4.params=casaDestino
+comment4.target=void\ mover(Casa)
+comment4.text=\r\n\ Retira\ a\ pe\u00E7a\ da\ casa\ atual\ e\ coloca-a\ na\ casa\ de\ destino.\r\n\ @param\ casaDestino\ \r\n
+numComments=5

@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Tabuleiro
+comment0.text=\r\n\ Representa\ o\ tabuleiro\ do\ jogo.\r\n\ \r\n\ @author\ Alan\ Moraes\ /\ alan@ci.ufpb.br\r\n\ @author\ Victor\ Koehler\ /\ koehlervictor@cc.ci.ufpb.br\r\n
+comment1.params=
+comment1.target=Tabuleiro()
+comment1.text=\r\n\ Construtor\ padr\u00E3o\ de\ um\ tabuleiro.\r\n
+comment2.params=primeiraCasa\ ultimaCasa
+comment2.target=void\ popularCasas(Casa,\ Casa)
+comment2.text=\r\n\ M\u00E9todo\ usado\ na\ constru\u00E7\u00E3o\ do\ tabuleiro\ para\ popular\ as\ casas\ com\ for.\r\n\ @param\ casa\r\n\ @param\ ultimaCasa\ \r\n
+comment3.params=casaEntradaZonaSegura\ cor
+comment3.target=void\ criarCasasZonaSegura(Casa,\ java.lang.String)
+comment3.text=\r\n\ M\u00E9todo\ usado\ na\ constru\u00E7\u00E3o\ do\ tabuleiro\ para\ popular\ as\ casas\ seguras\ com\ for.\r\n\ @param\ casaEntradaZonaSegura\r\n\ @param\ cor\ \r\n
+comment4.params=cor
+comment4.target=Guarita\ getGuarita(java.lang.String)
+comment4.text=\r\n\ Obt\u00E9m\ a\ guarita\ do\ jogador\ especificado.\r\n\ Consulte\ a\ classe\ Guarita\ para\ mais\ detalhes.\r\n\ @param\ cor\ Cor\ do\ jogador.\ Consulte\ a\ classe\ Cores.\r\n\ @return\ Guarita\ do\ jogador\r\n
+comment5.params=cor
+comment5.target=Casa\ getCasaInicio(java.lang.String)
+comment5.text=\r\n\ Obt\u00E9m\ a\ casa\ de\ in\u00EDcio\ da\ cor\ especificada.\r\n\ @param\ cor\ Cor\ do\ jogador.\ Consulte\ a\ classe\ Cores.\r\n\ @return\ Casa\ de\ in\u00EDcio.\r\n
+numComments=6
