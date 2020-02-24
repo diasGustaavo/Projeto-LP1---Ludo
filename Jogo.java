@@ -8,6 +8,7 @@ public class Jogo {
 
     // Tabuleiro do jogo
     private final Tabuleiro tabuleiro;
+    private boolean rolouDados;
     
     // Dados do jogo.
     private final Dado[] dados;
@@ -32,7 +33,8 @@ public class Jogo {
             // remover parâmetro do construtor para dado não batizado
             this.dados[i] = new Dado(i);
         }
-
+        
+        rolouDados = false;
         inicializaJogo();
     }
 
@@ -127,19 +129,22 @@ public class Jogo {
      * Aqui deve-se jogar os dados e fazer todas as verificações necessárias.
      */
     public void rolarDados() {
-
-        // AQUI SE IMPLEMENTARÁ AS REGRAS DO JOGO.
-        // TODA VEZ QUE O USUÁRIO CLICAR NO DADO DESENHADO NA INTERFACE GRÁFICA,
-        // ESTE MÉTODO SERÁ INVOCADO.
-        
-        
-        //
-        // TRECHO DE EXEMPLO
-        //
-        
-        // Aqui percorremos cada dado para lançá-lo individualmente.
-        for (Dado dado : dados) {
-            dado.rolar();
+        if(!rolouDados){
+            // AQUI SE IMPLEMENTARÁ AS REGRAS DO JOGO.
+            // TODA VEZ QUE O USUÁRIO CLICAR NO DADO DESENHADO NA INTERFACE GRÁFICA,
+            // ESTE MÉTODO SERÁ INVOCADO.
+            
+            
+            //
+            // TRECHO DE EXEMPLO
+            //
+            
+            // Aqui percorremos cada dado para lançá-lo individualmente.
+            for (Dado dado : dados) {
+                dado.rolar();
+            }
+            
+            rolouDados = true;
         }
     }
     
@@ -161,7 +166,7 @@ public class Jogo {
         
         // Perguntamos à casa se ela possui uma peça. 
         // Se não possuir, não há nada para se fazer.
-        if (!casa.possuiPeca()) {
+        if (!casa.possuiPeca() || !rolouDados) {
             return;
         }
         
@@ -205,6 +210,8 @@ public class Jogo {
             // if (casa.pertenceGuarita())
             //     System.out.println("A peça está na guarita");
         }
+        
+        rolouDados = false;
     }
     
     /**
