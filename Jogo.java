@@ -38,18 +38,18 @@ public class Jogo {
         inicializaJogo();
     }
 
-    /**
-     * Construtor do Jogo Ludo para inserção de dados arbitrários.
-     * Útil para inserir dados "batizados" e fazer testes.
-     * @param dados Dados
-     */
-    public Jogo(Dado[] dados) {
-        this.tabuleiro = new Tabuleiro();
-        this.dados = dados;
-        assert dados.length > 0; // TO BE REMOVED
+    // /**
+     // * Construtor do Jogo Ludo para inserção de dados arbitrários.
+     // * Útil para inserir dados "batizados" e fazer testes.
+     // * @param dados Dados
+     // */
+    // public Jogo(Dado[] dados) {
+        // this.tabuleiro = new Tabuleiro();
+        // this.dados = dados;
+        // // assert dados.length > 0; // TO BE REMOVED
 
-        inicializaJogo();
-    }
+        // inicializaJogo();
+    // }
 
     
     
@@ -182,6 +182,8 @@ public class Jogo {
                 
                 peca.mover(tabuleiro.getCasaInicio(peca.getCor()));
             }
+            
+            // return;
         }
 
         // Percorremos cada dado, somando o valor nele à variável somaDados.
@@ -191,9 +193,36 @@ public class Jogo {
         }
         
         // Percorreremos N casas.
+        int quantasCasasParaTras = 0;
         Casa proximaCasa = casa;
+        Casa casaSegura = casa;
         for (int i = 0; i < somaDados && proximaCasa != null; i++) {
-            proximaCasa = proximaCasa.getCasaSeguinte();
+            if(proximaCasa.getCasaSegura() != null && proximaCasa.getCasaSegura().getCor() == peca.getCor()){
+                casaSegura = proximaCasa.getCasaSegura();
+                proximaCasa = proximaCasa.getCasaSegura();
+            }
+            else if(proximaCasa.ehCasaFinal() == true){
+               // for (int j = somaDados - i; j < somaDados; j++)
+                   // {
+                       // proximaCasa = proximaCasa.getCasaAnterior();
+                   // }
+               quantasCasasParaTras = ((somaDados - i));
+               i = somaDados;
+               }
+            
+            else{
+               proximaCasa = proximaCasa.getCasaSeguinte();
+            }
+        }
+        
+        while(quantasCasasParaTras > 0){
+            if(proximaCasa.getCasaAnterior() == null){
+                quantasCasasParaTras = 0;
+            }
+            else{
+                proximaCasa = proximaCasa.getCasaAnterior();
+                quantasCasasParaTras--;
+            }
         }
 
         if (proximaCasa != null) {
