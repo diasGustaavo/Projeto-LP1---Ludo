@@ -33,7 +33,7 @@ public class Guarita {
      * Obtém o número de peças presentes nas casas da guarita.
      * @return Número de peças
      */
-    public int getNumeroDePecas() {
+    public int obterNumeroDePecas() {
         int s = 0;
         for (Casa casa : casas) {
             if (casa.possuiPeca()) {
@@ -48,14 +48,14 @@ public class Guarita {
      * Útil para iterar sobre as casas usando o for(each).
      * @return Array contendo as casas.
      */
-    public Casa[] getTodasAsCasas() {
+    public Casa[] obterTodasAsCasas() {
         return Arrays.copyOf(casas, casas.length);
     }
 
     /**
      * @return A cor da guarita
      */
-    public String getCor() {
+    public String obterCor() {
         return cor;
     }
 }

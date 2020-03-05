@@ -22,7 +22,7 @@ public class DadoGUI extends JButton {
         
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-        setIcon(janelaPrincipal.getIconePadrão("DADO_0"));
+        setIcon(janelaPrincipal.obterIconePadrão("DADO_0"));
         
         addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
@@ -38,7 +38,7 @@ public class DadoGUI extends JButton {
      */
     public void setValor(int valor) {
         if (valor >= 1 && valor <= 6) {
-            setIcon(janelaPrincipal.getIconePadrão("DADO_" + valor));
+            setIcon(janelaPrincipal.obterIconePadrão("DADO_" + valor));
         }
     }
     

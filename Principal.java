@@ -130,8 +130,8 @@ public class Principal extends JFrame {
      * @param cor Cor
      * @return Color AWT
      */
-    public Color getCorPadrão(String cor) {
-        return getCorPadrão(cor, Color.WHITE);
+    public Color obterCorPadrão(String cor) {
+        return obterCorPadrão(cor, Color.WHITE);
     }
 
     /**
@@ -140,7 +140,7 @@ public class Principal extends JFrame {
      * @param defaultColor Retorno padrão caso 'cor' não seja encontrada.
      * @return Color AWT
      */
-    public Color getCorPadrão(String cor, Color defaultColor) {
+    public Color obterCorPadrão(String cor, Color defaultColor) {
         return cores.getOrDefault(cor, defaultColor);
     }
 
@@ -151,7 +151,7 @@ public class Principal extends JFrame {
      * @param icone Icone representado por uma String.
      * @return Icon AWT
      */
-    public Icon getIconePadrão(String icone) {
+    public Icon obterIconePadrão(String icone) {
         return icones.get(icone);
     }
 
