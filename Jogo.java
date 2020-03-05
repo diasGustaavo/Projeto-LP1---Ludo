@@ -11,6 +11,9 @@ public class Jogo {
     
     // Dados do jogo.
     private final Dado[] dados;
+    private final String[] cores = {"VERDE", "VERMELHO", "AZUL", "AMARELO"};
+    private int indiceCores = 0;
+    private boolean rolouDados = false;
 
     /**
      * Construtor padrão do Jogo Ludo.
@@ -33,6 +36,7 @@ public class Jogo {
             this.dados[i] = new Dado(i);
         }
 
+        // corDaVez = 0;
         inicializaJogo();
     }
 
@@ -49,7 +53,15 @@ public class Jogo {
         inicializaJogo();
     }
 
-    
+     private void proximaCor(){
+        if(indiceCores == 3){
+            indiceCores = 0;
+        }
+        else
+        {
+            indiceCores++;
+        }
+    }
     
     
     private void inicializaJogo() {
@@ -125,6 +137,8 @@ public class Jogo {
         for (Dado dado : dados) {
             dado.rolar();
         }
+        
+        rolouDados = true;
     }
     
     private boolean dadosIguais(){
@@ -154,94 +168,109 @@ public class Jogo {
      * @param casa Casa escolhida pelo usuário/jogador.
      */
     public void escolherCasa(Casa casa) {
-
-        // AQUI SE IMPLEMENTARÁ AS REGRAS DO JOGO.
-        // TODA VEZ QUE O USUÁRIO CLICAR EM UMA CASA DESENHADA NA INTERFACE GRÁFICA,
-        // ESTE MÉTODO SERÁ INVOCADO.
+        if(rolouDados == true){
+            String corDaVez = cores[indiceCores];
+            if(corDaVez == casa.getPeca().obterCor()){
+            
+            // AQUI SE IMPLEMENTARÁ AS REGRAS DO JOGO.
+            // TODA VEZ QUE O USUÁRIO CLICAR EM UMA CASA DESENHADA NA INTERFACE GRÁFICA,
+            // ESTE MÉTODO SERÁ INVOCADO.
+            
+            
+            //
+            // TRECHO DE EXEMPLO
+            //
+            
+            // Perguntamos à casa se ela possui uma peça. 
+            // Se não possuir, não há nada para se fazer.
+            if (!casa.possuiPeca()) {
+                return;
+            }
+            
+            // Perguntamos à casa qual é a peça.
+            Peca peca = casa.getPeca();
         
-        
-        //
-        // TRECHO DE EXEMPLO
-        //
-        
-        // Perguntamos à casa se ela possui uma peça. 
-        // Se não possuir, não há nada para se fazer.
-        if (!casa.possuiPeca()) {
-            return;
-        }
-        
-        // Perguntamos à casa qual é a peça.
-        Peca peca = casa.getPeca();
+            if(casa.pertenceGuarita() && dadosIguais()){
+                String corPeca = peca.obterCor();
+                Casa casaInicio = tabuleiro.getCasaInicio(corPeca);
+                peca.mover(casaInicio);
+                return;
+            }
+            
     
-        if(casa.pertenceGuarita() && dadosIguais()){
-            String corPeca = peca.obterCor();
-            Casa casaInicio = tabuleiro.getCasaInicio(corPeca);
-            peca.mover(casaInicio);
-            return;
-        }
-        
-
-        // Percorremos cada dado, somando o valor nele à variável somaDados.
-        int somaDados = 0;
-        for (Dado dado : dados) {
-            somaDados += dado.getValor();
-        }
-        
-        // Percorreremos N casas.
-        Casa proximaCasa = casa;
-        boolean reverse = false;
-        for (int i = 0; i < somaDados && proximaCasa != null; i++) {
-            if(proximaCasa.ehEntradaZonaSegura() && proximaCasa.getCasaSegura().getCor() == peca.obterCor()){
-                proximaCasa = proximaCasa.getCasaSegura();
+            // Percorremos cada dado, somando o valor nele à variável somaDados.
+            int somaDados = 0;
+            for (Dado dado : dados) {
+                somaDados += dado.getValor();
             }
-            else if(proximaCasa.getCasaAnterior() == null){
-                proximaCasa = proximaCasa.getCasaSeguinte();
-                reverse = false;
-            }
-            else if(proximaCasa.ehCasaFinal() || reverse){
-                proximaCasa = proximaCasa.getCasaAnterior();
-                reverse = true;
-            }   
-            else{
-                proximaCasa = proximaCasa.getCasaSeguinte();
-            }
-        }
-        
-        //if (proximaCasa.possuiPeca() == true && proximaCasa.getPeca().obterCor() != peca.obterCor()){
-                
-              //proximacaCasa = null;
-        
-             // peca.mover(proximaCasa);
             
-
-        if (proximaCasa != null) {
-            if(proximaCasa.getPeca() != null) {
-                Peca outraPeca = proximaCasa.getPeca();
-                if(outraPeca.obterCor() != peca.obterCor()) {
-                    moverParaGuarita(outraPeca);
-                    peca.mover(proximaCasa);        
+            // Percorreremos N casas.
+            Casa proximaCasa = casa;
+            boolean reverse = false;
+            for (int i = 0; i < somaDados && proximaCasa != null; i++) {
+                if(proximaCasa.ehEntradaZonaSegura() && proximaCasa.getCasaSegura().getCor() == peca.obterCor()){
+                    proximaCasa = proximaCasa.getCasaSegura();
                 }
-                
-                else if (proximaCasa!= null) {
-                    peca.mover(proximaCasa);
-                }    
+                else if(proximaCasa.getCasaAnterior() == null){
+                    proximaCasa = proximaCasa.getCasaSeguinte();
+                    reverse = false;
+                }
+                else if(proximaCasa.ehCasaFinal() || reverse){
+                    proximaCasa = proximaCasa.getCasaAnterior();
+                    reverse = true;
+                }   
+                else{
+                    proximaCasa = proximaCasa.getCasaSeguinte();
+                }
             }
-            else {
-                peca.mover(proximaCasa);
-            }
-        }    
             
-        else {
-            // // NÃO HÁ PRÓXIMA CASA!
-            // // FIM DO JOGO? A PEÇA ESTÁ NA GUARITA?
-            // // Descomente a próxima linha para ser notificado quando isso acontecer:
-            // System.err.println("Não há próxima casa!");
-        
-            // // Descomente as duas próximas linhas para verificar se a peça está na guarita:
-            // if (casa.pertenceGuarita())
-            //     System.out.println("A peça está na guarita");
+            //if (proximaCasa.possuiPeca() == true && proximaCasa.getPeca().obterCor() != peca.obterCor()){
+                    
+                  //proximacaCasa = null;
+            
+                 // peca.mover(proximaCasa);
+                
+    
+            if (proximaCasa != null) {
+                if(proximaCasa.getPeca() != null) {
+                    Peca outraPeca = proximaCasa.getPeca();
+                    if(outraPeca.obterCor() != peca.obterCor()) {
+                        moverParaGuarita(outraPeca);
+                        peca.mover(proximaCasa);        
+                    }
+                    
+                    // else if (proximaCasa!= null) {
+                        // peca.mover(proximaCasa);
+                    // }
+                    else{
+                        return;
+                    }
+                }
+                else {
+                    peca.mover(proximaCasa);
+                }
+            }    
+                
+            else {
+                // // NÃO HÁ PRÓXIMA CASA!
+                // // FIM DO JOGO? A PEÇA ESTÁ NA GUARITA?
+                // // Descomente a próxima linha para ser notificado quando isso acontecer:
+                // System.err.println("Não há próxima casa!");
+            
+                // // Descomente as duas próximas linhas para verificar se a peça está na guarita:
+                // if (casa.pertenceGuarita())
+                //     System.out.println("A peça está na guarita");
+            }
+            
+            
+            if(!dadosIguais() && corDaVez == casa.getPeca().obterCor()){
+                proximaCor();
+            }
+            
+            rolouDados = false;
         }
     }
+}
     
     /**
      * Retorna o jogador que deve jogar os dados ou escolher uma peça.
