@@ -44,7 +44,7 @@ public class GuaritaGUI extends JButton {
         this.principal = principal;
         this.cor = cor;
         this.func = func;
-        this.casagui = func == -1 ? null : new CasaGUI(getCasa(), principal);
+        this.casagui = func == -1 ? null : new CasaGUI(obterCasa(), principal);
         setLayout(new GridLayout());
         setBorder(BorderFactory.createEmptyBorder());
         setContentAreaFilled(false);
@@ -58,16 +58,16 @@ public class GuaritaGUI extends JButton {
         return this.casagui != null;
     }
     
-    private Casa getCasa() {
+    private Casa obterCasa() {
         if (principal.getJogo() == null) {
             return null;
         }
         return principal.getJogo().getTabuleiro().getGuarita(cor).getCasa(func);
     }
     
-    private Color getCor() {
+    private Color obterCor() {
         if (func == -1 && principal != null) {
-            Color padrao = principal.getCorPadrão(cor, null);
+            Color padrao = principal.obterCorPadrão(cor, null);
             if (padrao == null) {
                 return Color.WHITE;
             }
@@ -86,10 +86,10 @@ public class GuaritaGUI extends JButton {
     @Override
     protected void paintComponent(Graphics g) {
         if (eCasa()) {
-            casagui.setCasa(getCasa());
+            casagui.setCasa(obterCasa());
         }
         else {
-            setBackground(getCor());
+            setBackground(obterCor());
             g.setColor(getBackground());
             g.fillRect(0, 0, getWidth(), getHeight());
         }

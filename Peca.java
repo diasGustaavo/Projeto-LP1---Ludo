@@ -26,7 +26,7 @@ public class Peca {
      * Cor da peça.
      * @return Cor da peça.
      */
-    public String getCor() {
+    public String obterCor() {
         return cor;
     }
     
@@ -34,7 +34,7 @@ public class Peca {
      * Casa na qual a peça se encontra.
      * @return Casa na qual a peça se encontra.
      */
-    public Casa getCasa() {
+    public Casa obterCasa() {
         return casa;
     }
     

@@ -8,7 +8,6 @@ public class Jogo {
 
     // Tabuleiro do jogo
     private final Tabuleiro tabuleiro;
-    private boolean rolouDados;
     
     // Dados do jogo.
     private final Dado[] dados;
@@ -20,7 +19,7 @@ public class Jogo {
     public Jogo() {
         this(2);
     }
-    
+   
     /**
      * Construtor do Jogo Ludo para inserção de um número arbitrário de dados.
      * @param numeroDados Número de dados do jogo.
@@ -33,23 +32,22 @@ public class Jogo {
             // remover parâmetro do construtor para dado não batizado
             this.dados[i] = new Dado(i);
         }
-        
-        rolouDados = false;
+
         inicializaJogo();
     }
 
-    // /**
-     // * Construtor do Jogo Ludo para inserção de dados arbitrários.
-     // * Útil para inserir dados "batizados" e fazer testes.
-     // * @param dados Dados
-     // */
-    // public Jogo(Dado[] dados) {
-        // this.tabuleiro = new Tabuleiro();
-        // this.dados = dados;
-        // // assert dados.length > 0; // TO BE REMOVED
+    /**
+     * Construtor do Jogo Ludo para inserção de dados arbitrários.
+     * Útil para inserir dados "batizados" e fazer testes.
+     * @param dados Dados
+     */
+    public Jogo(Dado[] dados) {
+        this.tabuleiro = new Tabuleiro();
+        this.dados = dados;
+        assert dados.length > 0; // TO BE REMOVED
 
-        // inicializaJogo();
-    // }
+        inicializaJogo();
+    }
 
     
     
@@ -71,53 +69,37 @@ public class Jogo {
         //
         // Guarita = espaço onde fica as peças fora do jogo;
         // Consulte a imagem "referencia.png" acompanhada na pasta dessa classe.
-        Guarita guaritaVerde;
-        Guarita guaritaAzul;
-        Guarita guaritaVermelho;
-        Guarita guaritaAmarelo;
+        Guarita guarita;
+        String[] cores = {"VERDE", "AZUL", "AMARELO", "VERMELHO"};
         
-        guaritaVerde = tabuleiro.getGuarita("VERDE");
-        for (Casa casaGuarita : guaritaVerde.getTodasAsCasas()) {
-            Peca novaPeca = new Peca("VERDE");
-            novaPeca.mover(casaGuarita);
-        }
-        
-        guaritaAmarelo = tabuleiro.getGuarita("AMARELO");
-        for (Casa casaGuarita : guaritaAmarelo.getTodasAsCasas()) {
-            Peca novaPeca = new Peca("AMARELO");
-            novaPeca.mover(casaGuarita);
-        }
-        
-        guaritaAzul = tabuleiro.getGuarita("AZUL");
-        for (Casa casaGuarita : guaritaAzul.getTodasAsCasas()) {
-            Peca novaPeca = new Peca("AZUL");
-            novaPeca.mover(casaGuarita);
-        }
-        
-        guaritaVermelho = tabuleiro.getGuarita("VERMELHO");
-        for (Casa casaGuarita : guaritaVermelho.getTodasAsCasas()) {
-            Peca novaPeca = new Peca("VERMELHO");
-            novaPeca.mover(casaGuarita);
+        for (int i = 0; i < cores.length; i++) {
+            guarita = tabuleiro.getGuarita(cores[i]);
+            for (Casa casaGuarita : guarita.obterTodasAsCasas()) {
+                Peca novaPeca = new Peca(cores[i]);
+                novaPeca.mover(casaGuarita);
+            }
         }
         
         
-
         // Obtemos uma das peças verdes que inicializamos logo acima para usa-la como exemplo.
         // Movemos ela para a casa de inicio do jogador verde.
-        // Casa casaGuarita;
-        // Casa casaInicio;
-        // Peca peca;
-                
-        // guarita = tabuleiro.getGuarita("VERDE");
-        // casaGuarita = guarita.getCasa(0);
-        // peca = casaGuarita.getPeca();
-        // casaInicio = tabuleiro.getCasaInicio("VERDE");
-        // peca.mover(casaInicio);
         
-        // // Apenas como um exemplo adicional, colocamos uma peça azul no tabuleiro.
-        // peca = new Peca("AZUL");
-        // casaInicio = tabuleiro.getCasaInicio("AZUL");
-        // peca.mover(casaInicio);
+        /*
+        Casa casaGuarita;
+        Casa casaInicio;
+        Peca peca;
+                
+        guarita = tabuleiro.getGuarita("VERDE");
+        casaGuarita = guarita.getCasa(0);
+        peca = casaGuarita.getPeca();
+        casaInicio = tabuleiro.getCasaInicio("VERDE");
+        peca.mover(casaInicio);
+        
+        // Apenas como um exemplo adicional, colocamos uma peça azul no tabuleiro.
+        peca = new Peca("AZUL");
+        casaInicio = tabuleiro.getCasaInicio("AZUL");
+        peca.mover(casaInicio);
+        */
 
         //
         // TRECHO DE EXEMPLO
@@ -129,24 +111,42 @@ public class Jogo {
      * Aqui deve-se jogar os dados e fazer todas as verificações necessárias.
      */
     public void rolarDados() {
-        if(!rolouDados){
-            // AQUI SE IMPLEMENTARÁ AS REGRAS DO JOGO.
-            // TODA VEZ QUE O USUÁRIO CLICAR NO DADO DESENHADO NA INTERFACE GRÁFICA,
-            // ESTE MÉTODO SERÁ INVOCADO.
-            
-            
-            //
-            // TRECHO DE EXEMPLO
-            //
-            
-            // Aqui percorremos cada dado para lançá-lo individualmente.
-            for (Dado dado : dados) {
-                dado.rolar();
-            }
-            
-            rolouDados = true;
+
+        // AQUI SE IMPLEMENTARÁ AS REGRAS DO JOGO.
+        // TODA VEZ QUE O USUÁRIO CLICAR NO DADO DESENHADO NA INTERFACE GRÁFICA,
+        // ESTE MÉTODO SERÁ INVOCADO.
+        
+        
+        //
+        // TRECHO DE EXEMPLO
+        //
+        
+        // Aqui percorremos cada dado para lançá-lo individualmente.
+        for (Dado dado : dados) {
+            dado.rolar();
         }
     }
+    
+    private boolean dadosIguais(){
+        if(dados[0].getValor() == dados[1].getValor()){
+            return true;
+        }
+        return false;
+    }
+    
+    public void moverParaGuarita(Peca pecaMorta){
+        Guarita guaritaMorta = tabuleiro.getGuarita(pecaMorta.obterCor());
+        Casa[] casaGuarita = guaritaMorta.obterTodasAsCasas();
+        int contador =0;
+        while(contador < 3) {
+            Casa casaAtual = casaGuarita[contador];
+            if(casaAtual.getPeca() == null){
+                pecaMorta.mover(casaAtual);
+                contador = 3;
+            }
+            contador++;
+        }
+    }    
     
     /**
      * Método invocado pelo usuário através da interface gráfica ou da linha de comando quando escolhida uma peça.
@@ -166,25 +166,20 @@ public class Jogo {
         
         // Perguntamos à casa se ela possui uma peça. 
         // Se não possuir, não há nada para se fazer.
-        if (!casa.possuiPeca() || !rolouDados) {
+        if (!casa.possuiPeca()) {
             return;
         }
         
         // Perguntamos à casa qual é a peça.
         Peca peca = casa.getPeca();
-        
-        //NOVO ADICIONADO POR GUSTAVO
-        //VERIFICA SE A CASA PERTENCE A GUARITA E SE OS NUMEROS DOS DADOS SAO IGUAIS
-        //SE SIM A PECA NA CASA MOVE-SE PARA CASA INICIAL
-        
-        if(casa.pertenceGuarita()){
-            if(dados[0].getValor() == dados[1].getValor()){
-                
-                peca.mover(tabuleiro.getCasaInicio(peca.getCor()));
-            }
-            
-            // return;
+    
+        if(casa.pertenceGuarita() && dadosIguais()){
+            String corPeca = peca.obterCor();
+            Casa casaInicio = tabuleiro.getCasaInicio(corPeca);
+            peca.mover(casaInicio);
+            return;
         }
+        
 
         // Percorremos cada dado, somando o valor nele à variável somaDados.
         int somaDados = 0;
@@ -193,42 +188,49 @@ public class Jogo {
         }
         
         // Percorreremos N casas.
-        int quantasCasasParaTras = 0;
         Casa proximaCasa = casa;
-        Casa casaSegura = casa;
+        boolean reverse = false;
         for (int i = 0; i < somaDados && proximaCasa != null; i++) {
-            if(proximaCasa.getCasaSegura() != null && proximaCasa.getCasaSegura().getCor() == peca.getCor()){
-                casaSegura = proximaCasa.getCasaSegura();
+            if(proximaCasa.ehEntradaZonaSegura() && proximaCasa.getCasaSegura().getCor() == peca.obterCor()){
                 proximaCasa = proximaCasa.getCasaSegura();
             }
-            else if(proximaCasa.ehCasaFinal() == true){
-               // for (int j = somaDados - i; j < somaDados; j++)
-                   // {
-                       // proximaCasa = proximaCasa.getCasaAnterior();
-                   // }
-               quantasCasasParaTras = ((somaDados - i));
-               i = somaDados;
-               }
-            
+            else if(proximaCasa.getCasaAnterior() == null){
+                proximaCasa = proximaCasa.getCasaSeguinte();
+                reverse = false;
+            }
+            else if(proximaCasa.ehCasaFinal() || reverse){
+                proximaCasa = proximaCasa.getCasaAnterior();
+                reverse = true;
+            }   
             else{
-               proximaCasa = proximaCasa.getCasaSeguinte();
+                proximaCasa = proximaCasa.getCasaSeguinte();
             }
         }
         
-        while(quantasCasasParaTras > 0){
-            if(proximaCasa.getCasaAnterior() == null){
-                quantasCasasParaTras = 0;
-            }
-            else{
-                proximaCasa = proximaCasa.getCasaAnterior();
-                quantasCasasParaTras--;
-            }
-        }
+        //if (proximaCasa.possuiPeca() == true && proximaCasa.getPeca().obterCor() != peca.obterCor()){
+                
+              //proximacaCasa = null;
+        
+             // peca.mover(proximaCasa);
+            
 
         if (proximaCasa != null) {
-            // Finalmente, a variável casaN contém a casa que a peça deve ser inserida.
-            peca.mover(proximaCasa);
-        }
+            if(proximaCasa.getPeca() != null) {
+                Peca outraPeca = proximaCasa.getPeca();
+                if(outraPeca.obterCor() != peca.obterCor()) {
+                    moverParaGuarita(outraPeca);
+                    peca.mover(proximaCasa);        
+                }
+                
+                else if (proximaCasa!= null) {
+                    peca.mover(proximaCasa);
+                }    
+            }
+            else {
+                peca.mover(proximaCasa);
+            }
+        }    
+            
         else {
             // // NÃO HÁ PRÓXIMA CASA!
             // // FIM DO JOGO? A PEÇA ESTÁ NA GUARITA?
@@ -239,8 +241,6 @@ public class Jogo {
             // if (casa.pertenceGuarita())
             //     System.out.println("A peça está na guarita");
         }
-        
-        rolouDados = false;
     }
     
     /**
@@ -261,7 +261,7 @@ public class Jogo {
 
     /**
      * Retorna o i-ésimo dado deste jogo entre 0 (inclusivo) e N (exclusivo).
-     * Consulte getQuantidadeDeDados() para verificar o valor de N
+     * Consulte obterQuantidadeDeDados() para verificar o valor de N
      * (isto é, a quantidade de dados presentes).
      * @param i Indice do dado.
      * @return O i-ésimo dado deste jogo.

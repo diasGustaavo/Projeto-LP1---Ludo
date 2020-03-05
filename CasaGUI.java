@@ -55,11 +55,11 @@ public class CasaGUI extends JButton {
     
     
         
-    private Color getCor() {
+    private Color obterCor() {
         if (casa == null || janelaPrincipal == null || casa.pertenceGuarita()) {
             return Color.WHITE;
         }
-        return janelaPrincipal.getCorPadrão(casa.getCor());
+        return janelaPrincipal.obterCorPadrão(casa.getCor());
     }
     
     
@@ -71,7 +71,7 @@ public class CasaGUI extends JButton {
     
     @Override
     protected void paintComponent(Graphics g) {
-        setBackground(getCor());
+        setBackground(obterCor());
         
         if (possuiBorda()) {
             setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -86,11 +86,11 @@ public class CasaGUI extends JButton {
             setText(q >= 2 ? q + "" : "");
             
             if (casa.possuiPeca()) {
-                Icon icon = janelaPrincipal.getIconePadrão(casa.getPeca().getCor());
+                Icon icon = janelaPrincipal.obterIconePadrão(casa.getPeca().obterCor());
                 setIcon(icon);
             }
             else if (casa.ehEntradaZonaSegura()) {
-                Icon icon = janelaPrincipal.getIconePadrão("ESTRELA");
+                Icon icon = janelaPrincipal.obterIconePadrão("ESTRELA");
                 setIcon(icon);
             }
         }

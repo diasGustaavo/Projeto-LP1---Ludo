@@ -41,4 +41,6 @@ public class Dado {
     public int getValor() {
         return valor;
     }
+
 }
+

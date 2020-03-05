@@ -24,7 +24,6 @@ public class Tabuleiro {
      * Construtor padrão de um tabuleiro.
      */
     public Tabuleiro() {
-        
         guaritaAmarelo = new Guarita("AMARELO");
         guaritaAzul = new Guarita("AZUL");
         guaritaVerde = new Guarita("VERDE");

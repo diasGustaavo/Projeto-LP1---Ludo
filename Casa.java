@@ -39,7 +39,7 @@ public class Casa {
      * @param guarita
      */
     public Casa(Guarita guarita) {
-        this(guarita.getCor(), null, guarita);
+        this(guarita.obterCor(), null, guarita);
     }
 
     /**
@@ -175,7 +175,7 @@ public class Casa {
         
     /**
      * Verifica se existe alguma casa especial de zona segura em frente a esta.
-     * Consulte getCasaSegura() para mais detalhes.
+     * Consulte obterCasaSegura() para mais detalhes.
      * @return Se possui casa de zona segura em frente a esta.
      */
     public boolean ehEntradaZonaSegura() {
@@ -197,7 +197,7 @@ public class Casa {
     
     /**
      * Se a casa pertence a alguma guarita de algum jogador.
-     * Consulte o método getGuarita().
+     * Consulte o método obterGuarita().
      * @return True caso pertença, false caso contrário.
      */
     public boolean pertenceGuarita() {
