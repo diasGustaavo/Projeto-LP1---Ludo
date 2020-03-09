@@ -249,19 +249,19 @@ public class Jogo {
         }
         
         if(quantosVerdes == 4){
-            return 1;
+            return 0;
         }
         else if(quantosVermelhos == 4){
-            return 2;
+            return 1;
         }
         else if(quantosAzul == 4){
-            return 3;
+            return 2;
         }
         else if(quantosAmarelos == 4){
-            return 4;
+            return 3;
         }
         else{  
-            return 0;
+            return 666;
         }
     }
     
@@ -300,7 +300,7 @@ public class Jogo {
      * 
      */
     public void setJogadorDaVez(){
-        if(quemGanhou() != 0){
+        if(quemGanhou() != 666){
             indiceTurno = quemGanhou();
         }
         else if(!dadosIguais() || !possivelJogar()){
