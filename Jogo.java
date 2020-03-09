@@ -227,6 +227,44 @@ public class Jogo {
         return proximaCasa;
     }
     
+    private int quemGanhou(){
+        int quantosVerdes = 0;
+        int quantosVermelhos = 0;
+        int quantosAmarelos = 0;
+        int quantosAzul = 0;
+        for (Peca peca : pecasDoJogo){
+            Casa casaDaPeca = peca.obterCasa();
+            if(casaDaPeca.ehCasaFinal() && peca.obterCor() == "VERDE"){
+                ++quantosVerdes;
+            }
+            else if(casaDaPeca.ehCasaFinal() && peca.obterCor() == "VERMELHO"){
+                ++quantosVermelhos;
+            }
+            else if(casaDaPeca.ehCasaFinal() && peca.obterCor() == "AZUL"){
+                ++quantosAzul;
+            }
+            else if(casaDaPeca.ehCasaFinal() && peca.obterCor() == "AMARELO"){
+                ++quantosAmarelos;
+            }
+        }
+        
+        if(quantosVerdes == 4){
+            return 1;
+        }
+        else if(quantosVermelhos == 4){
+            return 2;
+        }
+        else if(quantosAzul == 4){
+            return 3;
+        }
+        else if(quantosAmarelos == 4){
+            return 4;
+        }
+        else{  
+            return 0;
+        }
+    }
+    
     private boolean possivelJogar(){
         int jogadasValidas = 4;
         for (Peca peca : pecasDoJogo) {
@@ -262,7 +300,10 @@ public class Jogo {
      * 
      */
     public void setJogadorDaVez(){
-        if(!dadosIguais() || !possivelJogar()){
+        if(quemGanhou() != 0){
+            indiceTurno = quemGanhou();
+        }
+        else if(!dadosIguais() || !possivelJogar()){
             if(indiceTurno == 3)
                 indiceTurno = 0;
             else{
