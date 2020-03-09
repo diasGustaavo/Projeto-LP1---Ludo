@@ -302,6 +302,8 @@ public class Jogo {
     public void setJogadorDaVez(){
         if(quemGanhou() != 666){
             indiceTurno = quemGanhou();
+            rolouDados = true;
+            return;
         }
         else if(!dadosIguais() || !possivelJogar()){
             if(indiceTurno == 3)
