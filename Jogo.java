@@ -1,5 +1,5 @@
 /**
- * Implementa as mecânicas e regras do jogo Ludo.
+ * Implementa as mecÃ¢nicas e regras do jogo Ludo.
  *
  * @author Alan Moraes / alan@ci.ufpb.br
  * @author Victor Koehler / koehlervictor@cc.ci.ufpb.br
@@ -21,28 +21,26 @@ public class Jogo {
     // Dados do jogo.
     private final Dado[] dados;
     private boolean rolouDados = false;
-    
-    //Controle de saida da guarita
-    boolean saiuGuarita = false;
+    private boolean fimDeJogo = false;
 
     /**
-     * Construtor padrão do Jogo Ludo.
-     * Isto é, um jogo de Ludo convencional com dois dados.
+     * Construtor padrÃ£o do Jogo Ludo.
+     * Isto Ã©, um jogo de Ludo convencional com dois dados.
      */
     public Jogo() {
         this(2);
     }
    
     /**
-     * Construtor do Jogo Ludo para inserção de um número arbitrário de dados.
-     * @param numeroDados Número de dados do jogo.
+     * Construtor do Jogo Ludo para inserÃ§Ã£o de um nÃºmero arbitrÃ¡rio de dados.
+     * @param numeroDados NÃºmero de dados do jogo.
      */
     public Jogo(int numeroDados) {
         this.tabuleiro = new Tabuleiro();
         this.dados = new Dado[numeroDados];
         
         for (int i = 0; i < this.dados.length; i++) {
-            // remover parâmetro do construtor para dado não batizado
+            // remover parÃ¢metro do construtor para dado nÃ£o batizado
             this.dados[i] = new Dado(i);
         }
 
@@ -51,8 +49,8 @@ public class Jogo {
     }
 
     /**
-     * Construtor do Jogo Ludo para inserção de dados arbitrários.
-     * Útil para inserir dados "batizados" e fazer testes.
+     * Construtor do Jogo Ludo para inserÃ§Ã£o de dados arbitrÃ¡rios.
+     * Ãštil para inserir dados "batizados" e fazer testes.
      * @param dados Dados
      */
     public Jogo(Dado[] dados) {
@@ -78,21 +76,21 @@ public class Jogo {
     }
 
     /**
-     * Método invocado pelo usuário através da interface gráfica ou da linha de comando para jogar os dados.
-     * Aqui deve-se jogar os dados e fazer todas as verificações necessárias.
+     * MÃ©todo invocado pelo usuÃ¡rio atravÃ©s da interface grÃ¡fica ou da linha de comando para jogar os dados.
+     * Aqui deve-se jogar os dados e fazer todas as verificaÃ§Ãµes necessÃ¡rias.
      */
     public void rolarDados() {
 
-        // AQUI SE IMPLEMENTARÁ AS REGRAS DO JOGO.
-        // TODA VEZ QUE O USUÁRIO CLICAR NO DADO DESENHADO NA INTERFACE GRÁFICA,
-        // ESTE MÉTODO SERÁ INVOCADO.
+        // AQUI SE IMPLEMENTARÃ� AS REGRAS DO JOGO.
+        // TODA VEZ QUE O USUÃ�RIO CLICAR NO DADO DESENHADO NA INTERFACE GRÃ�FICA,
+        // ESTE MÃ‰TODO SERÃ� INVOCADO.
         
         
-        if(rolouDados){
+        if(rolouDados || fimDeJogo){
             return;
         }
         
-        // Aqui percorremos cada dado para lançá-lo individualmente.
+        // Aqui percorremos cada dado para lanÃ§Ã¡-lo individualmente.
         for (Dado dado : dados) {
             dado.rolar();
         }
@@ -122,9 +120,9 @@ public class Jogo {
     }    
     
     /**
-     * Método invocado pelo usuário através da interface gráfica ou da linha de comando quando escolhida uma peça.
-     * Aqui deve-se mover a peça e fazer todas as verificações necessárias.
-     * @param casa Casa escolhida pelo usuário/jogador.
+     * MÃ©todo invocado pelo usuÃ¡rio atravÃ©s da interface grÃ¡fica ou da linha de comando quando escolhida uma peÃ§a.
+     * Aqui deve-se mover a peÃ§a e fazer todas as verificaÃ§Ãµes necessÃ¡rias.
+     * @param casa Casa escolhida pelo usuÃ¡rio/jogador.
      */
     public void escolherCasa(Casa casa) {   
         if(!rolouDados){
@@ -143,7 +141,7 @@ public class Jogo {
             return;
         }
         
-        // Perguntamos à casa qual é a peça.
+        // Perguntamos Ã  casa qual Ã© a peÃ§a.
         Peca peca = casa.getPeca();
         
         String corPeca = peca.obterCor();
@@ -151,20 +149,13 @@ public class Jogo {
             return;
         }
         
-        Casa casaInicioDoJogador = tabuleiro.getCasaInicio(corPeca);
-        if(saiuGuarita && casaInicioDoJogador != casa){
-            return;
-        }
         
         Casa proximaCasa;
-        boolean saiuCasaInicio = false;
         if(casa.pertenceGuarita() && dadosIguais()){
-            proximaCasa = casaInicioDoJogador;
-            saiuGuarita = true;
+            proximaCasa = tabuleiro.getCasaInicio(corPeca);
         }
         else{
             proximaCasa = percorrerCasas(casa);
-            saiuCasaInicio = true;
         }
        
         if (proximaCasa != null) {
@@ -175,9 +166,12 @@ public class Jogo {
                     peca.mover(proximaCasa);        
                 }
                 else if(proximaCasa.ehCasaFinal()){
-                    int quantidadePecas = proximaCasa.getQuantidadePecas();
+                    int quantidadePecas = proximaCasa.getQuantidadePecas() + 1;
                     peca.mover(proximaCasa);
-                    proximaCasa.setQuantidadePecas(quantidadePecas + 1);
+                    proximaCasa.setQuantidadePecas(quantidadePecas);
+                    if(quantidadePecas == 4) {
+                    	fimDeJogo = true;
+                    }
                 }
                 else{
                     return;
@@ -185,9 +179,6 @@ public class Jogo {
             }
             else {
                 peca.mover(proximaCasa);
-            }
-            if(saiuCasaInicio){
-                saiuGuarita = false;
             }
         }    
         setJogadorDaVez();
@@ -227,44 +218,6 @@ public class Jogo {
         return proximaCasa;
     }
     
-    private int quemGanhou(){
-        int quantosVerdes = 0;
-        int quantosVermelhos = 0;
-        int quantosAmarelos = 0;
-        int quantosAzul = 0;
-        for (Peca peca : pecasDoJogo){
-            Casa casaDaPeca = peca.obterCasa();
-            if(casaDaPeca.ehCasaFinal() && peca.obterCor() == "VERDE"){
-                ++quantosVerdes;
-            }
-            else if(casaDaPeca.ehCasaFinal() && peca.obterCor() == "VERMELHO"){
-                ++quantosVermelhos;
-            }
-            else if(casaDaPeca.ehCasaFinal() && peca.obterCor() == "AZUL"){
-                ++quantosAzul;
-            }
-            else if(casaDaPeca.ehCasaFinal() && peca.obterCor() == "AMARELO"){
-                ++quantosAmarelos;
-            }
-        }
-        
-        if(quantosVerdes == 4){
-            return 0;
-        }
-        else if(quantosVermelhos == 4){
-            return 1;
-        }
-        else if(quantosAzul == 4){
-            return 2;
-        }
-        else if(quantosAmarelos == 4){
-            return 3;
-        }
-        else{  
-            return 666;
-        }
-    }
-    
     private boolean possivelJogar(){
         int jogadasValidas = 4;
         for (Peca peca : pecasDoJogo) {
@@ -300,12 +253,7 @@ public class Jogo {
      * 
      */
     public void setJogadorDaVez(){
-        if(quemGanhou() != 666){
-            indiceTurno = quemGanhou();
-            rolouDados = true;
-            return;
-        }
-        else if(!dadosIguais() || !possivelJogar()){
+        if(!dadosIguais() || !possivelJogar()){
             if(indiceTurno == 3)
                 indiceTurno = 0;
             else{
@@ -316,7 +264,7 @@ public class Jogo {
     }
 
     /**
-     * Retorna o jogador que deve jogar os dados ou escolher uma peça.
+     * Retorna o jogador que deve jogar os dados ou escolher uma peÃ§a.
      * @return Cor do jogador.
      */
     public String getJogadorDaVez() {
@@ -332,18 +280,18 @@ public class Jogo {
     }
 
     /**
-     * Retorna o i-ésimo dado deste jogo entre 0 (inclusivo) e N (exclusivo).
+     * Retorna o i-Ã©simo dado deste jogo entre 0 (inclusivo) e N (exclusivo).
      * Consulte obterQuantidadeDeDados() para verificar o valor de N
-     * (isto é, a quantidade de dados presentes).
+     * (isto Ã©, a quantidade de dados presentes).
      * @param i Indice do dado.
-     * @return O i-ésimo dado deste jogo.
+     * @return O i-Ã©simo dado deste jogo.
      */
     public Dado getDado(int i) {
         return dados[i];
     }
     
     /**
-     * Obtém a quantidade de dados sendo usados neste jogo.
+     * ObtÃ©m a quantidade de dados sendo usados neste jogo.
      * @return Quantidade de dados.
      */
     public int getQuantidadeDados() {
