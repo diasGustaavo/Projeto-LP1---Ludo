@@ -1,14 +1,14 @@
 #BlueJ class context
 comment0.target=TabuleiroGUI
-comment0.text=\r\n\ Implementa\ as\ rotinas\ da\ interface\ gr\u00E1fica\ do\ jogo\ relacionadas\ ao\ Tabuleiro.\r\n\ \r\n\ @author\ Alan\ Moraes\ /\ alan@ci.ufpb.br\r\n\ @author\ Victor\ Koehler\ /\ koehlervictor@cc.ci.ufpb.br\r\n
+comment0.text=\n\ Implementa\ as\ rotinas\ da\ interface\ gr\u00E1fica\ do\ jogo\ relacionadas\ ao\ Tabuleiro.\n\ \n\ @author\ Alan\ Moraes\ /\ alan@ci.ufpb.br\n\ @author\ Victor\ Koehler\ /\ koehlervictor@cc.ci.ufpb.br\n
 comment1.params=
 comment1.target=TabuleiroGUI()
-comment1.text=\r\n\ Creates\ new\ form\ Tabuleiro\r\n
+comment1.text=\n\ Creates\ new\ form\ Tabuleiro\n
 comment10.params=
 comment10.target=void\ reiniciarLayout()
 comment11.params=
 comment11.target=void\ initComponents()
-comment11.text=\r\n\ This\ method\ is\ called\ from\ within\ the\ constructor\ to\ initialize\ the\ form.\r\n\ WARNING\:\ Do\ NOT\ modify\ this\ code.\ The\ content\ of\ this\ method\ is\ always\r\n\ regenerated\ by\ the\ Form\ Editor.\r\n
+comment11.text=\n\ This\ method\ is\ called\ from\ within\ the\ constructor\ to\ initialize\ the\ form.\n\ WARNING\:\ Do\ NOT\ modify\ this\ code.\ The\ content\ of\ this\ method\ is\ always\n\ regenerated\ by\ the\ Form\ Editor.\n
 comment2.params=principal
 comment2.target=TabuleiroGUI(Principal)
 comment3.params=

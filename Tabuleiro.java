@@ -32,10 +32,10 @@ public class Tabuleiro {
         // Inicializamos um tabuleiro de Ludo
         
         // Casas de Inicio
-        casaInicioAmarelo = new Casa("AMARELO");
-        casaInicioAzul = new Casa("AZUL");
-        casaInicioVerde = new Casa("VERDE");
-        casaInicioVermelho = new Casa("VERMELHO");
+        casaInicioAmarelo = new CasaComum("AMARELO");
+        casaInicioAzul = new CasaComum("AZUL");
+        casaInicioVerde = new CasaComum("VERDE");
+        casaInicioVermelho = new CasaComum("VERMELHO");
         
         
         // Casas comuns
@@ -54,12 +54,11 @@ public class Tabuleiro {
     private void popularCasas(Casa primeiraCasa, Casa ultimaCasa) {
         Casa casa = primeiraCasa; 
         for (int i = 0; i < 12; i++) {
-            Casa casaSeguinte = new Casa();
+            Casa casaSeguinte = (i != 10) ? new CasaComum() : new CasaEntradaZonaSegura();
             casa.setCasaSeguinte(casaSeguinte);
             casa = casaSeguinte;
-            
-            if (i == 10) {
-                criarCasasZonaSegura(casa, ultimaCasa.getCor());
+            if(i == 10){
+                criarCasasZonaSegura((CasaEntradaZonaSegura) casa, ultimaCasa.getCor());
             }
         }
         casa.setCasaSeguinte(ultimaCasa);
@@ -70,16 +69,15 @@ public class Tabuleiro {
      * @param casaEntradaZonaSegura
      * @param cor 
      */
-    private void criarCasasZonaSegura(Casa casaEntradaZonaSegura, String cor) {
-        Casa casaZonaSegura = new Casa(cor);
+    private void criarCasasZonaSegura(CasaEntradaZonaSegura casaEntradaZonaSegura, String cor) {
+        Casa casaZonaSegura = new CasaSegura(cor);
         casaEntradaZonaSegura.setCasaSegura(casaZonaSegura);
         for (int i = 0; i < 5; i++) {
-            Casa casaNova = new Casa(cor, casaZonaSegura);
+            Casa casaNova = new CasaSegura(cor, casaZonaSegura);
             casaZonaSegura.setCasaSeguinte(casaNova);
             casaZonaSegura = casaNova;
         }
     }
-    
     
     /**
      * Obtém a guarita do jogador especificado.

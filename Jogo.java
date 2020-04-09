@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Jogo {
     // Tabuleiro do jogo
     private final Tabuleiro tabuleiro;
-   
+ 
     //Turnos
     private final String[] turnos = {"VERDE", "VERMELHO", "AZUL", "AMARELO"};
     private int indiceTurno = 0;
@@ -44,7 +44,6 @@ public class Jogo {
             this.dados[i] = new Dado(i);
         }
 
-        // corDaVez = 0;
         inicializaJogo();
     }
 
@@ -61,6 +60,10 @@ public class Jogo {
         inicializaJogo();
     }
     
+    
+    /**
+     * Inicializa o jogo, preechendo todas as guaritad com as suas respectivas peças
+     */
     private void inicializaJogo() {
         Guarita guarita;
         String[] cores = {"VERDE", "AZUL", "AMARELO", "VERMELHO"};
@@ -80,16 +83,14 @@ public class Jogo {
      * Aqui deve-se jogar os dados e fazer todas as verificaÃ§Ãµes necessÃ¡rias.
      */
     public void rolarDados() {
-
         // AQUI SE IMPLEMENTARÃ� AS REGRAS DO JOGO.
         // TODA VEZ QUE O USUÃ�RIO CLICAR NO DADO DESENHADO NA INTERFACE GRÃ�FICA,
         // ESTE MÃ‰TODO SERÃ� INVOCADO.
-        
-        
+
         if(rolouDados || fimDeJogo){
             return;
         }
-        
+
         // Aqui percorremos cada dado para lanÃ§Ã¡-lo individualmente.
         for (Dado dado : dados) {
             dado.rolar();
@@ -102,22 +103,37 @@ public class Jogo {
         }
     }
     
-    private boolean dadosIguais(){
-        if(dados[0].getValor() == dados[1].getValor()){
-            return true;
-        }
-        return false;
-    }
     
-    public void moverParaGuarita(Peca pecaCapturada){
+    /**
+     * Método responsável por capturar a peça inimiga
+     * Todas as peças capturadas são devolvidas a sua recpetiva guarita
+     */
+    public void capturarPeca(Peca pecaCapturada){
         Guarita guaritaPecaCapturada = tabuleiro.getGuarita(pecaCapturada.obterCor());
-        for (Casa casaGuarita : guaritaPecaCapturada.obterTodasAsCasas()) {
-           if(casaGuarita.getPeca() == null){
-                pecaCapturada.mover(casaGuarita);
+        int qtdPecasCapt = pecaCapturada.getQtdPecas();
+        
+        pecaCapturada.capturar();
+        
+        String corPecaCapt = pecaCapturada.obterCor();
+        Casa casasDaGuarita[] = guaritaPecaCapturada.obterTodasAsCasas();
+        int contador = 0;
+        for (Peca peca : pecasDoJogo) {
+            if(peca.obterCor() == corPecaCapt && peca.obterCasa() == null){
+                for (int i = contador; i < 4; i++){
+                    Casa casaGuarita = casasDaGuarita[i];
+                    if(casaGuarita.getPeca() == null){
+                        peca.mover(casaGuarita);
+                        qtdPecasCapt--;
+                        contador = i + 1;
+                        break;
+                    }
+                }
+            }  
+            if(qtdPecasCapt == 0){
                 break;
             }
         }
-    }    
+    }
     
     /**
      * MÃ©todo invocado pelo usuÃ¡rio atravÃ©s da interface grÃ¡fica ou da linha de comando quando escolhida uma peÃ§a.
@@ -125,123 +141,57 @@ public class Jogo {
      * @param casa Casa escolhida pelo usuÃ¡rio/jogador.
      */
     public void escolherCasa(Casa casa) {   
-        if(!rolouDados){
+        if(acaoInvalida(casa)){
             return;
-        }
-        
-        if (!casa.possuiPeca()) {
-            return;
-        }
-        
-        if(casa.pertenceGuarita() && !dadosIguais()){
-            return;
-        }
-        
-        if(casa.ehCasaFinal()){
-            return;
-        }
-        
-        // Perguntamos Ã  casa qual Ã© a peÃ§a.
-        Peca peca = casa.getPeca();
-        
-        String corPeca = peca.obterCor();
-        if(!(getJogadorDaVez() == corPeca)){
-            return;
-        }
-        
-        
-        Casa proximaCasa;
-        if(casa.pertenceGuarita() && dadosIguais()){
-            proximaCasa = tabuleiro.getCasaInicio(corPeca);
-        }
-        else{
-            proximaCasa = percorrerCasas(casa);
         }
        
-        if (proximaCasa != null) {
+        // Perguntamos a casa qual é a sua peça.
+        Peca peca = casa.getPeca();
+        Casa proximaCasa = casa.obterCasaDestino(this);
+        if(proximaCasa != null){
             if(proximaCasa.getPeca() != null) {
                 Peca outraPeca = proximaCasa.getPeca();
-                if(outraPeca.obterCor() != peca.obterCor()) {
-                    moverParaGuarita(outraPeca);
-                    peca.mover(proximaCasa);        
-                }
-                else if(proximaCasa.ehCasaFinal()){
-                    int quantidadePecas = proximaCasa.getQuantidadePecas() + 1;
-                    peca.mover(proximaCasa);
-                    proximaCasa.setQuantidadePecas(quantidadePecas);
-                    if(quantidadePecas == 4) {
-                    	fimDeJogo = true;
-                    }
-                }
-                else{
-                    return;
-                }
+                if(outraPeca.obterCor() != peca.obterCor()) 
+                    capturarPeca(outraPeca);        
             }
-            else {
-                peca.mover(proximaCasa);
-            }
-        }    
-        setJogadorDaVez();
+            peca.mover(proximaCasa);
+            if(proximaCasa.getQuantidadePecas() == 4)
+                fimDeJogo = true;
+            setJogadorDaVez();
+        }
     }
     
-    private int somaDados(){
-        int somaDados = 0;
-        for (Dado dado : dados) {
-            somaDados += dado.getValor();
+    
+    /**
+     * Verifica se a ação do jogador diante do estado do jogo é valida
+     */
+    private boolean acaoInvalida(Casa casa){
+        if(!rolouDados || !casa.possuiPeca()){
+            return true;
+        }
+        Peca peca = casa.getPeca();
+        
+        if(!(getJogadorDaVez() == peca.obterCor())) {
+            return true;
         }
         
-        return somaDados;
+        return false;
     }
-    
-    
-    private Casa percorrerCasas(Casa proximaCasa){
-        // Percorreremos N casas.
-        Peca peca = proximaCasa.getPeca();
-        boolean reverse = false;
-        for (int i = 0; i < somaDados() && proximaCasa != null; i++) {
-            if(proximaCasa.ehEntradaZonaSegura() && proximaCasa.getCasaSegura().getCor() == peca.obterCor()){
-                proximaCasa = proximaCasa.getCasaSegura();
-            }
-            else if(proximaCasa.getCasaAnterior() == null){
-                proximaCasa = proximaCasa.getCasaSeguinte();
-                reverse = false;
-            }
-            else if(proximaCasa.ehCasaFinal() || reverse){
-                proximaCasa = proximaCasa.getCasaAnterior();
-                reverse = true;
-            }   
-            else{
-                proximaCasa = proximaCasa.getCasaSeguinte();
-            }
-        }
         
-        return proximaCasa;
-    }
-    
+    /**
+     * Verifica se o jogador possui peças que podem ser jogadas
+     */
     private boolean possivelJogar(){
         int jogadasValidas = 4;
         for (Peca peca : pecasDoJogo) {
             if(peca.obterCor() == getJogadorDaVez()){
                 Casa casaDaPeca = peca.obterCasa();
-                if(casaDaPeca.pertenceGuarita() && !dadosIguais()){
+                if(casaDaPeca == null || casaDaPeca.obterCasaDestino(this) == null){
                     jogadasValidas--;
-                }
-                else if(casaDaPeca.ehCasaFinal()){
-                    jogadasValidas--;
-                }
-                else{
-                    Casa proximaCasa = percorrerCasas(casaDaPeca);
-                    if(proximaCasa != null && proximaCasa.getPeca() != null) {
-                        Peca outraPeca = proximaCasa.getPeca();
-                        boolean coresIguais = peca.obterCor() == outraPeca.obterCor();
-                        if(!proximaCasa.ehCasaFinal() && coresIguais) {  
-                            jogadasValidas--;      
-                        }
-                    }
                 }
             }
         }
-        
+      
         if(jogadasValidas != 0){
             return true;
         }
@@ -250,7 +200,6 @@ public class Jogo {
    
     /**
      * Controla o turno dos jogadores.
-     * 
      */
     public void setJogadorDaVez(){
         if(!dadosIguais() || !possivelJogar()){
@@ -279,6 +228,43 @@ public class Jogo {
         return tabuleiro;
     }
 
+    /**
+     * Retorna se os dados são iguais
+     */
+    public boolean dadosIguais(){
+        if(dados[0].getValor() == dados[1].getValor()){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Retorna resultado da soma de todos os dados do array de dados.
+     */
+    public int somaDados(){
+        int somaDados = 0;
+        for (Dado dado : dados) {
+            somaDados += dado.getValor();
+        }
+        
+        return somaDados;
+    }
+    
+    /**
+     * Retorna o valor do menor do array de dados.
+     */
+    public int menorDado(){
+        int menorValor = 6;
+        for (Dado dado : dados) {
+            int valorDoDado = dado.getValor();
+            if(valorDoDado < menorValor ){
+                menorValor = valorDoDado;
+            }
+        }
+        
+        return menorValor;
+    }
+    
     /**
      * Retorna o i-Ã©simo dado deste jogo entre 0 (inclusivo) e N (exclusivo).
      * Consulte obterQuantidadeDeDados() para verificar o valor de N

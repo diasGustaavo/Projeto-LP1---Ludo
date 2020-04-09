@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=CasaComum
+comment0.text=\n\ Escreva\ a\ descri\u00E7\u00E3o\ da\ classe\ CasaBranca\ aqui.\n\ \n\ @author\ (seu\ nome)\ \n\ @version\ (n\u00FAmero\ de\ vers\u00E3o\ ou\ data)\n
+comment1.params=
+comment1.target=CasaComum()
+comment1.text=\n\ Construtor\ padr\u00E3o\ de\ todas\ as\ pe\u00E7as\ brancas\ \n
+comment2.params=cor
+comment2.target=CasaComum(java.lang.String)
+comment2.text=\n\ Construtor\ padr\u00E3o\ de\ todas\ as\ pe\u00E7as\ de\ cor\ que\ possuem\ como\ proxima\ casa\ a\ casa\ seguinte\n
+comment3.params=peca
+comment3.target=Casa\ getProximaCasa(Peca)
+numComments=4

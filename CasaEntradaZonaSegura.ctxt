@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=CasaEntradaZonaSegura
+comment0.text=\n\ Escreva\ a\ descri\u00E7\u00E3o\ da\ classe\ CasaEntradaZonaSegura\ aqui.\n\ \n\ @author\ (seu\ nome)\ \n\ @version\ (n\u00FAmero\ de\ vers\u00E3o\ ou\ data)\n
+comment1.params=
+comment1.target=CasaEntradaZonaSegura()
+comment1.text=\n\ Construtor\ padr\u00E3o\ da\ casa\ de\ entrada\ da\ zona\ segura\n
+comment2.params=peca
+comment2.target=Casa\ getProximaCasa(Peca)
+comment3.params=casa
+comment3.target=void\ setCasaSegura(Casa)
+comment3.text=\n\ Define\ a\ casa\ segura\ desta\ classe\n
+comment4.params=
+comment4.target=Casa\ getCasaSegura()
+comment4.text=\n\ Retorna\ a\ casa\ segura\n
+comment5.params=
+comment5.target=boolean\ ehEntradaZonaSegura()
+comment5.text=\n\ Verifica\ se\ existe\ alguma\ casa\ especial\ de\ zona\ segura\ em\ frente\ a\ esta.\n\ Consulte\ obterCasaSegura()\ para\ mais\ detalhes.\n\ @return\ Se\ possui\ casa\ de\ zona\ segura\ em\ frente\ a\ esta.\n
+numComments=6

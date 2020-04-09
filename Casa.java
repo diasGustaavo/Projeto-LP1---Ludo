@@ -1,63 +1,31 @@
 /**
- * Representa uma casa no tabuleiro do jogo.
+ * Classe abstrata Casa - escreva a descrição da classe aqui
  * 
- * @author Alan Moraes / alan@ci.ufpb.br
- * @author Victor Koehler / koehlervictor@cc.ci.ufpb.br
+ * @author (seu nome aqui)
+ * @version (versão ou data)
  */
-public class Casa {
-
+public abstract class Casa
+{
     // Semelhante as Listas Encadeadas, armazena ou não a casa seguinte, anterior e ou segura.
-    private Casa casaSeguinte;
-    private Casa casaSegura;
-    private Casa casaAnterior;
-    
-    // Guarita da casa, caso pertença a alguma.
-    private Guarita guarita; 
+    protected Casa casaSeguinte;
+    protected Casa casaAnterior;
     
     // Peça presentes neste casa
-    private Peca peca; 
+    protected Peca peca; 
     
     // Quantidade de peças presente na casa (Para casas finais).
-    private int qtdePecas; 
+    protected int qtdePecas; 
     
     // Consulte a classe Cores; -1 para neutro/nulo.
-    private final String cor; 
+    protected final String cor;
     
     /**
-     * Construtor padrão para casas comuns indexadas.
+     * Construtor padrão de todas as casas do jogo 
      */
-    public Casa() {
-        this("BRANCO", null, null);
-    }
-    
-    public Casa(String cor) {
-        this(cor, null, null);
-    }
-    
-    /**
-     * Construtor padrão para casas da guarita.
-     * @param guarita
-     */
-    public Casa(Guarita guarita) {
-        this(guarita.obterCor(), null, guarita);
-    }
-
-    /**
-     * Construtor padrão para todas as casas.
-     *
-     * @param cor Cor do jogador
-     * @param anterior Casa anterior.
-     */
-    public Casa(String cor, Casa anterior) {
-        this(cor, anterior, null);
-    }
-    
-    private Casa(String cor, Casa anterior, Guarita guarita) {
+    protected Casa(String cor, Casa anterior) {
         this.cor = cor;
         this.casaAnterior = anterior;
-        this.guarita = guarita;
         this.casaSeguinte = null;
-        this.casaSegura = null;
         this.peca = null;
         this.qtdePecas = 0;
     }
@@ -87,15 +55,14 @@ public class Casa {
      * @return A peça que estava anteriormente nesta casa, ou null caso não
      * houvesse alguma.
      */
-    public Peca setPeca(Peca peca) {
-        Peca r = getPeca();
+    public void setPeca(Peca peca) {
         this.peca = peca;
         if (peca == null) {
             this.qtdePecas = 0;
-        } else {
-            this.qtdePecas = 1;
         }
-        return r;
+        else{
+            this.qtdePecas = peca.getQtdPecas();
+        }
     }
 
     /**
@@ -122,8 +89,24 @@ public class Casa {
      * Define a casa seguinte a esta.
      * @param seguinte A casa seguinte a esta.
      */
+    public Casa getCasaSegura() {
+        return null;
+    }
+    
+    /**
+     * Define a casa seguinte a esta.
+     * @param seguinte A casa seguinte a esta.
+     */
     public void setCasaSeguinte(Casa seguinte) {
         this.casaSeguinte = seguinte;
+    }
+    
+    /**
+     * Define a casa seguinte a esta.
+     * @param seguinte A casa seguinte a esta.
+     */
+    public Casa getCasaSeguinte() {
+        return casaSeguinte;
     }
 
     /**
@@ -133,55 +116,60 @@ public class Casa {
     public void setCasaAnterior(Casa anterior) {
         this.casaAnterior = anterior;
     }
-
-    /**
-     * A casa segura seguinte a esta. Isto é, caso este campo seja diferente de
-     * null, então esta casa é o ponto final por onde os peões de um jogador de
-     * determinada cor passarão antes de entrar na zona segura, e portanto,
-     * esta é a casa que tal peão deve seguir ao invés de setCasaSeguinte().
-     * @param casa A casa segura seguinte a esta.
-     */
-    public void setCasaSegura(Casa casa) {
-        casaSegura = casa;
-    }
     
     /**
-     * Obtém a casa seguinte a esta, se houver.
-     *
-     * @return A casa seguinte. Null caso não exista.
+     * Método abstrato, responsável por retornar a proxima casa que uma peça deve ir
+     * Portanto cada subclasse deverá defini-lo      
      */
-    public Casa getCasaSeguinte() {
-        return casaSeguinte;
-    }
-    
+    public abstract Casa getProximaCasa(Peca peca);
+      
     /**
-     * Obtém a casa anterior a esta, se houver.
-     *
-     * @return A casa anterior. Null caso não exista.
+     * Retorna a casa que a peça passada pro metódo deve ir, de acordo com o estado do jogo
      */
-    public Casa getCasaAnterior() {
-        return casaAnterior;
-    }
-    
-    /**
-     * Se esta casa for entrada da zona segura, então retorna a primeira casa da
-     * zona de segurança.
-     *
-     * @return A casa segura. Null caso não exista.
-     */
-    public Casa getCasaSegura() {
-        return casaSegura;
-    }
+    public Casa obterCasaDestino(Jogo jogo){
+        if(ehCasaFinal()){
+            return null;
+        }
+        Tabuleiro tabuleiro = jogo.getTabuleiro();
+        Casa proximaCasa = this;
+        Casa casaAnterior;
+        int resultDados;
         
+        resultDados = (peca.getQtdPecas() > 1) ? jogo.menorDado() : jogo.somaDados();
+       
+        boolean sairGuarita = false;
+        peca.setAdiante();
+        for (int i = 0; i < resultDados && proximaCasa != null && !sairGuarita; i++) {
+            casaAnterior = proximaCasa;
+            sairGuarita = pertenceGuarita() && jogo.dadosIguais();
+            proximaCasa = (sairGuarita) ? tabuleiro.getCasaInicio(cor) : proximaCasa.getProximaCasa(peca);
+            if(proximaCasa != null && proximaCasa.possuiPeca()){
+                Peca pecaObstaculo = proximaCasa.getPeca();
+                boolean coresIguais = pecaObstaculo.obterCor() == peca.obterCor();
+                boolean casteloMaiorAFrente = pecaObstaculo.getQtdPecas() > peca.getQtdPecas();
+                if(!coresIguais && casteloMaiorAFrente){
+                    if(i == 0){
+                        return null;
+                    }
+                    return casaAnterior;
+                }
+                else if(peca.equals(pecaObstaculo) && i == resultDados-1){
+                    return null;
+                }
+            }
+        }
+        return proximaCasa;
+    }
+   
     /**
      * Verifica se existe alguma casa especial de zona segura em frente a esta.
      * Consulte obterCasaSegura() para mais detalhes.
      * @return Se possui casa de zona segura em frente a esta.
      */
     public boolean ehEntradaZonaSegura() {
-        return casaSegura != null;
+        return false;
     }
-    
+   
     /**
      * Se a é a última casa do jogador (isto é, se é a casa que o jogador almeja
      * colocar todas as suas peças).
@@ -192,7 +180,7 @@ public class Casa {
      * @return true se é a casa final.
      */
     public boolean ehCasaFinal() {
-        return getCasaSeguinte() == null && getCasaAnterior() != null;
+        return false;
     }
     
     /**
@@ -201,15 +189,7 @@ public class Casa {
      * @return True caso pertença, false caso contrário.
      */
     public boolean pertenceGuarita() {
-        return guarita != null;
-    }
-    
-    /**
-     * Obtém a guarita a qual esta casa pertence, se existir.
-     * @return Instância de Guarita caso pertença, null caso contrário.
-     */
-    public Guarita getGuarita() {
-        return guarita;
+        return false;
     }
     
     /**

@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=CasaGuarita
+comment0.text=\n\ Escreva\ a\ descri\u00E7\u00E3o\ da\ classe\ CasaGuarita\ aqui.\n\ \n\ @author\ (seu\ nome)\ \n\ @version\ (n\u00FAmero\ de\ vers\u00E3o\ ou\ data)\n
+comment1.params=guarita
+comment1.target=CasaGuarita(Guarita)
+comment1.text=\n\ Construtor\ para\ objetos\ da\ classe\ CasaGuarita\n
+comment2.params=
+comment2.target=boolean\ pertenceGuarita()
+comment2.text=\n\ Se\ a\ casa\ pertence\ a\ alguma\ guarita\ de\ algum\ jogador.\n\ Consulte\ o\ m\u00E9todo\ obterGuarita().\n\ @return\ True\ caso\ perten\u00E7a,\ false\ caso\ contr\u00E1rio.\n
+comment3.params=peca
+comment3.target=Casa\ getProximaCasa(Peca)
+numComments=4

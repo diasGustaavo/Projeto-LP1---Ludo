@@ -17,7 +17,7 @@ public class Guarita {
      */
     public Guarita(String cor) {
         this.cor = cor;
-        this.casas = new Casa[] { new Casa(this), new Casa(this), new Casa(this), new Casa(this) };
+        this.casas = new CasaGuarita[] { new CasaGuarita(this), new CasaGuarita(this), new CasaGuarita(this), new CasaGuarita(this) };
     }
     
     /**
